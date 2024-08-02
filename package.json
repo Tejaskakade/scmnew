@@ -1,0 +1,20 @@
+{
+    "name": "scmnew",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "build:css": "npx tailwindcss build src/main/resources/static/css/input.css -o src/main/resources/static/css/output.css",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "scmnew": "file:"
+    },
+    "devDependencies": {
+        "tailwindcss": "^3.4.7"
+    }
+}

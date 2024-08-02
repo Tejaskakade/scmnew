@@ -1,0 +1,15 @@
+<div class="parent-fragement" th:fragment="parent(x)">
+    <h1> This is parent fragment</h1>
+    <p> Lorem ipsum dolor sit amet consectetur, adipisicing elit. Similique, placeat.</p>
+
+    <div th:replace="${x}"></div>
+
+</div>
+
+<div th:fragment="secondParent(section)">
+    <h1> this is secondParent fragment</h1>
+
+    <div th:replace="${section}"></div>
+
+
+</div>
