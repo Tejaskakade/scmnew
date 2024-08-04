@@ -1,17 +1,37 @@
-<div class="parent-fragement" th:fragment="parent(x)">
-    <h1> This is parent fragment</h1>
-    <p> if user is loginn then this fragment works</p>
-    <p> Lorem ipsum dolor sit amet consectetur, adipisicing elit. Similique, placeat.</p>
+<!DOCTYPE html>
+<html lang="en" class="light" th:fragment="parent(content,title,script)" xmlns:th="http://www.thymeleaf.org">
 
-    <div th:replace="${x}"></div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:replace="${title}"></title>
+    <link rel="stylesheet" href="" data-th-href="@{'/css/output.css'}">
 
-</div>
+    <!-- flowbite css link -->
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css" rel="stylesheet" />
 
-<div th:fragment="secondParent(section)">
-    <h1> this is secondParent fragment</h1>
-    <p> if user is not loginn then this fragement works</p>
+    <!-- font awesome icon cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
 
-    <div th:replace="${section}"></div>
+</head>
 
+<body class="dark:bg-gray-900 dark:text-white">
 
-</div>
+    <div th:replace="~{navbar :: navbar}"></div>
+
+    <div class="p-4  ">
+        <section th:replace="${content}"></section>
+    </div>
+
+    <!-- <footer class="p-3"> Footer: Learn Code With Tejas</footer> -->
+
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
+    <script th:src="@{'/js/script.js'}"></script>
+
+    <th:block th:replace="${script}">
+    </th:block>
+
+</body>
+
+</html>
