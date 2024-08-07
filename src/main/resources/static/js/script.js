@@ -22,9 +22,10 @@ function changeTheme() {
     // set the listner to change theme button
     const changeThemeButton = document.querySelector('#theme_change_button')
         // currentTheme == 'light' ? 'dark' : 'light';
-    const oldTheme = currentTheme;
 
     changeThemeButton.addEventListener('click', (event) => {
+
+        let oldTheme = currentTheme;
 
         console.log("change theme button clicked");
 
