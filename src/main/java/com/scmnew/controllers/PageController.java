@@ -60,6 +60,8 @@ public class PageController {
         return "contact";
     }
 
+    // this is login page( view)
+
     @GetMapping("/login")
     public String login(Model model){
 
@@ -67,6 +69,7 @@ public class PageController {
         return "login";
     }
 
+    //registration  page (view)
     @GetMapping("/register")
     public String register(Model model){
         UserForm userForm = new UserForm();

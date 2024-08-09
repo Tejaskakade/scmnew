@@ -29,7 +29,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @Configuration
 public class SecurityConfig {    //below code is only for  Inmemorydatabase
 
-    //user creation and login using java code with inMemory service
+    //user creation and login using java code with inMemory service (we just write this code for understanding)
     //@Bean
 
     // @Bean
@@ -93,7 +93,7 @@ public class SecurityConfig {    //below code is only for  Inmemorydatabase
             formLogin.loginPage("/login")
             .loginProcessingUrl("/authenticate");   //the login form processing is done on "/authenticate"
 
-            formLogin.successForwardUrl("/user/dashboard");   //the form forward on this  url
+            formLogin.successForwardUrl("/user/profile");   //the form forward on this  url
             // formLogin.failureForwardUrl("/login?error=true");
             formLogin.usernameParameter("email");
             formLogin.passwordParameter("password");
