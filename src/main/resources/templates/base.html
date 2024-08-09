@@ -22,7 +22,19 @@
 
 <body class="dark:bg-gray-900 bg-gray-100 dark:text-white">
 
-    <div th:replace="~{navbar :: navbar}"></div>
+    <!-- if user is logged in then we show this navbar -->
+    <div th:if="${loggedInUser}">
+        <div th:replace="~{user/user_navbar::user-navbar}"></div>
+
+    </div>
+
+
+    <!-- if user is not logged in then we show this navbar -->
+    <div th:unless="${loggedInUser}">
+        <div th:replace="~{navbar::navbar}"></div>
+    </div>
+
+
 
     <div class="p-4  ">
         <section th:replace="${content}"></section>
