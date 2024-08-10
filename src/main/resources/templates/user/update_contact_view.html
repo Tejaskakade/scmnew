@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>Add Contact</title>
+    <title>Update Contact</title>
 
 </head>
 
@@ -26,11 +26,10 @@
 
                         <div th:replace="~{message :: messagebox}"></div>
 
-                        <h1 class="text-2xl font-semibold">Add new contact</h1>
-                        <p class="text-gray-500">This contact will be stored on cloud , you can direct email this client from scm</p>
+                        <h1 class="text-2xl font-semibold">Update contact</h1>
 
 
-                        <form action="" class="mt-8" th:action="@{'/user/contacts/add'}" method="post" th:object="${contactForm} " enctype="multipart/form-data">
+                        <form class="mt-8" th:action="@{'/user/contacts/update/'+${contactId}}" method="post" th:object="${contactForm} " enctype="multipart/form-data">
 
                             <!-- name form -->
                             <div class="mb-3">
@@ -45,7 +44,8 @@
                                         placeholder="name">
                                 </div>
                                 <!-- error field -->
-                                <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-red-500"> Invalid Name</p>
+                                <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-red-500">
+                                    Invalid Name</p>
 
                             </div>
 
@@ -66,7 +66,8 @@
                                 </div>
 
                                 <!-- error field -->
-                                <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-red-500"> Invalid Email</p>
+                                <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-red-500">
+                                    Invalid Email</p>
 
                             </div>
 
@@ -98,7 +99,8 @@
                                     placeholder="Address of the contact..."></textarea>
 
                                 <!-- error field -->
-                                <p th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="text-red-500"> Invalid Name</p>
+                                <p th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="text-red-500">
+                                    Invalid Name</p>
 
                             </div>
 
@@ -163,8 +165,7 @@
 
                                 <p th:if="${#fields.hasErrors('contactImage')}" th:errors="*{contactImage}" class="text-red-500"> Invalid image</p>
 
-
-                                <img class="max-h-52 mx-auto rounded-lg shadow m-3" src="" id="upload_image_preview" alt="">
+                                <img th:src="*{picture}" class="max-h-52 mx-auto rounded-lg shadow m-3" src="" id="upload_image_preview" alt="">
                             </div>
 
                             <!-- favourite checkbox -->
@@ -177,7 +178,7 @@
                             <div class="button-container text-center">
 
                                 <button type="submit" class="px-3 py-2 dark:bg-blue-600 hover:dark:bg-blue-700 rounded bg-black text-white">
-                                    Add Contact
+                                    Update Contact
                                 </button>
 
                                 <button type="reset" class="px-3 py-2 dark:bg-blue-600 hover:dark:bg-blue-700 rounded bg-black text-white">
