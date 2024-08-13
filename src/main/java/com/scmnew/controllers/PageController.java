@@ -16,6 +16,7 @@ import com.scmnew.helper.Message;
 import com.scmnew.helper.MessageType;
 import com.scmnew.services.UserService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
@@ -33,30 +34,32 @@ public class PageController {
     }
 
     @RequestMapping("/home")
-    public String home(Model model){
-        model.addAttribute("name", "Tejas");
-        model.addAttribute("language", "Java");
-        System.out.println("Home page Handler");
+    public String home(Model model, HttpServletRequest request){
+    model.addAttribute("currentUri", request.getRequestURI());
+       
         return "home";
     }
 
     @RequestMapping("/about")
-    public String aboutPage(Model model){
-        System.out.println("About page loading ");
+    public String aboutPage(Model model, HttpServletRequest request){
+        model.addAttribute("currentUri", request.getRequestURI());
+       
         return "about";
     }
 
     @RequestMapping("/services")
-    public String servicesPage(Model model){
+    public String servicesPage(Model model, HttpServletRequest request){
+        model.addAttribute("currentUri", request.getRequestURI());
 
-        System.out.println("About page loading ");
+        
         return "services";
     }
 
     @GetMapping("/contact")
-    public String contact(Model model){
+    public String contact(Model model, HttpServletRequest request){
+        model.addAttribute("currentUri", request.getRequestURI());
 
-        System.out.println("About page loading ");
+    
         return "contact";
     }
 
@@ -65,7 +68,6 @@ public class PageController {
     @GetMapping("/login")
     public String login(Model model){
 
-        System.out.println("About page loading ");
         return "login";
     }
 
@@ -110,6 +112,7 @@ public class PageController {
     user.setPassword(userForm.getPassword());
     user.setPhoneNumber(userForm.getPhoneNumber());
     user.setAbout(userForm.getAbout());
+    user.setEnabled(false);
     user.setProfilePic("https://iconduck.com/icons/6491/profile-default");
 
 

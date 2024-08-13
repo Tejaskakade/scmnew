@@ -2,34 +2,51 @@
 <html lang="en" th:replace="~{base :: parent(~{::#content},~{::title},~{::script})}">
 
 <head>
-
     <title th:text="${loggedInUser.name}+' | SCM'">Profile Page</title>
-
 </head>
 
 <body>
-
     <div id="content">
-
         <!-- if user is logged in then we show this sidebar -->
-
         <div th:if="${loggedInUser}">
             <div th:replace="~{user/sidebar::sidebar}"></div>
         </div>
 
-        <div class="sm:pl-64 pt-20" style="height: 1000px;">
-            <h1 class="text-5xl">This is Profile page</h1>
-        </div>
+        <div class="sm:pl-64 pt-20">
+            <h1 class="text-5xl mb-8">This is Profile page</h1>
+            <!-- Added margin bottom for spacing -->
 
+            <!-- profile card -->
+            <div class="flex items-center justify-center flex-col">
+                <div class="max-w-xl w-full lg:max-w-2xl lg:flex mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+                    <!-- Updated card size -->
+                    <div class="lg:h-64 lg:w-64 flex-none bg-cover bg-center" th:style="'background-image: url(' + @{${loggedInUser.profilePic}} + ');'" alt="User Profile Picture"></div>
+                    <img th:src="@{${loggedInUser.profilePic}}" alt=" Profile photo">
+                    <!-- Updated image size -->
+                    <div class="p-6 flex flex-col justify-between leading-normal">
+                        <!-- Updated padding -->
+                        <div class="mb-8">
+                            <h2 class="text-gray-900 dark:text-white font-bold text-2xl mb-4" th:text="${loggedInUser.name}">User Name</h2>
+                            <!-- Updated margin bottom -->
+                            <p class="text-gray-700 dark:text-gray-300 text-base" th:text="${loggedInUser.about}">About the user</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm mb-2"><strong>Email:</strong> <span th:text="${loggedInUser.email}">user@example.com</span></p>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm mb-2"><strong>Phone:</strong> <span th:text="${loggedInUser.phoneNumber}">+123456789</span></p>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm mb-2"><strong>Provider:</strong> <span th:text="${loggedInUser.provider}">SELF</span></p>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm mb-2"><strong>Enabled:</strong> <span th:text="${loggedInUser.enabled ? 'Yes' : 'No'}">No</span></p>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm mb-2"><strong>Email Verified:</strong> <span th:text="${loggedInUser.emailVerified ? 'Yes' : 'No'}">No</span></p>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm"><strong>Phone Verified:</strong> <span th:text="${loggedInUser.phoneVerified ? 'Yes' : 'No'}">No</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
-        console.log("this is profile page")
+        console.log("this is profile page");
     </script>
-
-
-
-
 </body>
 
 </html>

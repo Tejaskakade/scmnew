@@ -15,7 +15,7 @@ import com.scmnew.services.ImageService;
 @Service
 public class ImageServiceImpl implements ImageService {
 
-    private Cloudinary cloudinary;
+    private Cloudinary cloudinary;            //we created a cloudinary bean in AppCinfig class
     
      //this constructor is work  as autowiring the cloudinary
     public ImageServiceImpl(Cloudinary cloudinary) {

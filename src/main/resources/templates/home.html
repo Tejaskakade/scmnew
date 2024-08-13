@@ -1,20 +1,40 @@
 <!DOCTYPE html>
-<html lang="en" th:replace="~{base :: parent(~{::.content},~{::title},~{::script})}">
+<html lang="en" th:replace="~{base :: parent(~{::#content},~{::title},~{::script})}">
 
 <head>
 
     <title>Home Page</title>
 
+
 </head>
 
 <body>
 
-    <div class="content">
-        <p>This is home page</p>
+    <div id="content" class=" ">
+
+
+        <div class=" background-image background-overlay grid place-items-center min-h-screen p-4 lg:pt-20 pt-28 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300  bg-cover bg-center bg-fixed h-500 w-full" style="background-image: url('images/bgimage2.jpg');">
+
+            <div class=" text-center " style="font-family: 'Poppins', sans-serif;">
+                <h1 class="text-5xl font-extrabold mb-6 ">Smart Contact Manager New</h1>
+
+                <h2 class="text-3xl pl-20 pr-20 text-center  mb-6 "> Start collecting contacts in a very We provide a very efficient and smarter way of handling contacts.</h2>
+
+
+                <p class="text-xl max-w-lg mx-auto  "> </p>
+
+                <!-- Button to navigate to the login page -->
+                <a th:href="@{'/login'}" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Go to Login
+            </a>
+
+            </div>
+        </div>
+
     </div>
 
     <script>
-        console.log("Welcome to homepage")
+        console.log("Welcome to homepage ")
     </script>
 
 

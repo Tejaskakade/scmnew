@@ -59,6 +59,9 @@ public class SecurityConfig {    //below code is only for  Inmemorydatabase
      @Autowired
      private OAuthAuthenticationSuccessHandler handler;
 
+     @Autowired
+     private AuthFailureHandler authFailureHandler;
+
 
      //configuration of authentication provider for spring security
     @Bean
@@ -119,6 +122,8 @@ public class SecurityConfig {    //below code is only for  Inmemorydatabase
             //     }
                 
             // });
+
+            formLogin.failureHandler(authFailureHandler );
 
 
         });

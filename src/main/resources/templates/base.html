@@ -8,6 +8,7 @@
 
     <!-- flowbite css link -->
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="" data-th-href="@{'/css/output.css'}">
     <link rel="stylesheet" href="" th:href="@{'/css/style.css'}">
@@ -17,39 +18,53 @@
     <!-- font awesome icon cdn -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer"
     />
+    <style>
+        shiv {
+            background-image: url('images/bgimage.jpg');
+            background-repeat: no-repeat;
+            color: #FFFFFF;
+        }
+    </style>
+
 
 </head>
 
 <body class="dark:bg-gray-900 bg-gray-100 dark:text-white">
+    <div class="shiv">
 
-    <!-- if user is logged in then we show this navbar -->
-    <div th:if="${loggedInUser}">
-        <div th:replace="~{user/user_navbar::user-navbar}"></div>
 
+
+
+        <!-- if user is logged in then we show this navbar -->
+        <div th:if="${loggedInUser}">
+            <div th:replace="~{user/user_navbar::user-navbar}"></div>
+
+        </div>
+
+
+        <!-- if user is not logged in then we show this navbar -->
+        <div th:unless="${loggedInUser}">
+            <div th:replace="~{navbar::navbar}"></div>
+        </div>
+
+
+
+        <div class="">
+
+            <section th:replace="${content}"></section>
+        </div>
+
+        <!-- <footer class="p-3"> Footer: Learn Code With Tejas</footer> -->
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
+
+        <script th:src="@{'/js/script.js'}"></script>
+
+
+        <th:block th:replace="${script}">
+        </th:block>
     </div>
-
-
-    <!-- if user is not logged in then we show this navbar -->
-    <div th:unless="${loggedInUser}">
-        <div th:replace="~{navbar::navbar}"></div>
-    </div>
-
-
-
-    <div class="p-4  ">
-        <section th:replace="${content}"></section>
-    </div>
-
-    <!-- <footer class="p-3"> Footer: Learn Code With Tejas</footer> -->
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
-
-    <script th:src="@{'/js/script.js'}"></script>
-
-
-    <th:block th:replace="${script}">
-    </th:block>
 
 </body>
 

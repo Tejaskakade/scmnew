@@ -22,22 +22,20 @@
 
             <div class="contact_container p-5">
 
-                <div class="relative  overflow-x-auto shadow-md sm:rounded-lg">
-
-                    <div th:replace="~{message:: messagebox}"></div>
+                <div class="flex md:flex-row flex-col items-center px-4 justify-between bg-white dark:bg-gray-900">
 
                     <form th:action="@{'/user/contacts/search'}" th:object="${contactSearchForm}">
-                        <div class="flex  space-x-3 p-5 items-center justify-start flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 bg-white dark:bg-gray-900">
+                        <div class="flex  space-x-3 p-5 items-center justify-start flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 ">
 
                             <!-- select box -->
                             <div>
 
                                 <select th:field="*{field}" id="countries_disabled" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                  <option selected value="">Select field</option>
-                                  <option value="Name">Name</option>
-                                  <option value="Email">Email</option>
-                                  <option value="Phone">Phone</option>
-                                 
+                                    <option selected value="">Select field</option>
+                                    <option value="Name">Name</option>
+                                    <option value="Email">Email</option>
+                                    <option value="Phone">Phone</option>
+
                                 </select>
                             </div>
 
@@ -59,7 +57,22 @@
                         </div>
 
                     </form>
-                    <table th:if="${pageContact.totalElements>0}" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+
+                    <div>
+
+                        <button onclick="exportData()" type="button" class="px-3 py-2 bg-green-800 text-white rounded">
+                            Export
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="relative  overflow-x-auto shadow-md sm:rounded-lg">
+
+                    <div th:replace="~{message:: messagebox}"></div>
+
+                    <table id="contact-table" th:if="${pageContact.totalElements>0}" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
 
@@ -109,13 +122,16 @@
                                     <!-- <a th:href="@{'/user/contacts/delete/'+*{id}}"> <i class="fa-solid fa-trash h-6 w-6"></i></a> -->
 
                                     <!-- delete contact link -->
-                                    <button th:onclick="deleteContact([[${c.id}]])"> <i class="fa-solid fa-trash h-6 w-6"></i></button>
+                                    <button th:onclick="deleteContact([[${c.id}]])"> <i
+                                            class="fa-solid fa-trash h-6 w-6"></i></button>
 
                                     <!-- update contact link -->
-                                    <a th:href="@{'/user/contacts/view/'+ *{id}}"><i class="fa-solid fa-pen h-6 w-6"></i></a>
+                                    <a th:href="@{'/user/contacts/view/'+ *{id}}"><i
+                                            class="fa-solid fa-pen h-6 w-6"></i></a>
 
                                     <!-- view contact link -->
-                                    <button th:data-id="${c.id}" th:onclick="loadContactdata([[${c.id}]])"> <i class="fa-solid fa-eye h-6 w-6"></i></button>
+                                    <button th:data-id="${c.id}" th:onclick="loadContactdata([[${c.id}]])"> <i
+                                            class="fa-solid fa-eye h-6 w-6"></i></button>
                                 </td>
                             </tr>
 
@@ -153,7 +169,8 @@
 
                     </div>
 
-                    <h1 th:if="${pageContact.totalElements<=0}" class="text-5xl text-center bg-white "> No result found </h1>
+                    <h1 th:if="${pageContact.totalElements<=0}" class="text-5xl text-center bg-white "> No result found
+                    </h1>
 
 
                 </div>
@@ -169,10 +186,22 @@
 
     </div>
 
+    <script src="
+    https://cdn.jsdelivr.net/npm/@linways/table-to-excel@1.0.4/dist/tableToExcel.min.js
+    "></script>
+
     <script th:src="@{'/js/contact.js'}"></script>
 
     <script>
-        console.log("this is profile page")
+        function exportData() {
+
+            TableToExcel.convert(document.getElementById("contact-table"), {
+                name: "contact.xlsx",
+                sheet: {
+                    name: "Sheet 1"
+                }
+            });
+        }
     </script>
 
 
