@@ -8,28 +8,46 @@
 </head>
 
 <body>
-
     <div id="content">
-
         <!-- if user is logged in then we show this sidebar -->
-
         <div th:if="${loggedInUser}">
             <div th:replace="~{user/sidebar::sidebar}"></div>
         </div>
 
-        <div class="sm:pl-64 pt-20">
-            <h1 class="text-5xl ">This is Dashboard page</h1>
-        </div>
+        <div class="sm:pl-72 pt-20 md:pr-5 mb-5">
+            <h1 class="text-5xl mb-8 text-center">Welcome, <span th:text="${loggedInUser.name}">User</span>!</h1>
 
+            <!-- Dashboard Overview -->
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-5">
+                <h2 class="text-3xl mb-4">Dashboard Overview</h2>
+                <p class="text-gray-700 dark:text-gray-300 mb-4" th:text="'Total Contacts: ' + ${totalContacts}">Total Contacts: 0</p>
+                <p class="text-gray-700 dark:text-gray-300 mb-4" th:text="'Contacts Added This Week: ' + ${contactsAddedThisWeek}">Contacts Added This Week: 0</p>
+                <p class="text-gray-700 dark:text-gray-300" th:text="'Total Categories: ' + ${totalCategories}">Total Categories: 0</p>
+            </div>
+
+
+
+            <!-- Quick Access -->
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-5">
+                <h2 class="text-3xl mb-4">Quick Access</h2>
+                <div class="flex space-x-4">
+                    <a th:href="@{'/user/contacts/add'}" class="bg-blue-500 text-white px-4 py-2 rounded-lg">Add New Contact</a>
+                    <a th:href="@{'/user/contacts'}" class="bg-green-500 text-white px-4 py-2 rounded-lg">View All Contacts</a>
+                </div>
+            </div>
+
+            <!-- Tips or Announcements -->
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+                <h2 class="text-3xl mb-4">Tips & Announcements</h2>
+                <p class="text-gray-700 dark:text-gray-300 mb-4">Stay organized by categorizing your contacts. Use tags to quickly find and manage your contacts.</p>
+                <p class="text-gray-700 dark:text-gray-300">Remember to back up your contacts regularly to avoid data loss.</p>
+            </div>
+        </div>
     </div>
 
     <script>
-        console.log("this is profile page ")
+        console.log("This is the dashboard page");
     </script>
-
-
-
-
 </body>
 
 </html>

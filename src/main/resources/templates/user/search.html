@@ -96,8 +96,8 @@
                                 </td>
                                 <td class="px-6 py-4">
                                     <div class="flex items-center">
-                                        <div th:if="*{favorite}" class="h-2.5 w-2.5 rounded-full bg-green-500 me-2">
-                                        </div>
+                                        <a th:if="*{favorite}"> <i class="fa-solid fa-heart w-6 h-6 text-red-600"></i>
+                                        </a>
 
                                         <a th:href="@{*{websiteLink}}" target="_blank"><i
                                                 class="fa-solid w-6 h-6 fa-link"></i></a>
@@ -108,9 +108,16 @@
                                     </div>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <a href=""> <i class="fa-solid fa-trash h-6 w-6"></i></a>
-                                    <a href=""><i class="fa-solid fa-pen h-6 w-6"></i></a>
-                                    <a href=""> <i class="fa-solid fa-eye h-6 w-6"></i></a>
+                                    <button th:onclick="deleteContact([[${c.id}]])"> <i
+                                        class="fa-solid fa-trash h-6 w-6 space-x-3"></i></button>
+
+                                    <!-- update contact link -->
+                                    <a th:href="@{'/user/contacts/view/'+ *{id}}"><i
+                                        class="fa-solid fa-pen h-6 w-6"></i></a>
+
+                                    <!-- view contact link -->
+                                    <button th:data-id="${c.id}" th:onclick="loadContactdata([[${c.id}]])"> <i
+                                        class="fa-solid fa-eye h-6 w-6"></i></button>
                                 </td>
                             </tr>
 
@@ -148,10 +155,12 @@
                         </nav>
 
                     </div>
-                    <h1 th:if="${pageContact.totalElements<=0}" class="text-5xl text-center bg-white"> No result found </h1>
+                    <h1 th:if="${pageContact.totalElements<=0}" class="text-5xl text-center bg-white  dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white"> No result found </h1>
                 </div>
 
 
+            </div>
+            <div th:replace="~{user/contact_modals::contact}">
             </div>
 
         </div>
@@ -160,8 +169,26 @@
 
     </div>
 
+    <script src="
+    https://cdn.jsdelivr.net/npm/@linways/table-to-excel@1.0.4/dist/tableToExcel.min.js
+    "></script>
+
+    <script th:src="@{'/js/contact.js'}"></script>
+
     <script>
         console.log("this is profile page")
+    </script>
+
+    <script>
+        function exportData() {
+
+            TableToExcel.convert(document.getElementById("contact-table"), {
+                name: "contact.xlsx",
+                sheet: {
+                    name: "Sheet 1"
+                }
+            });
+        }
     </script>
 
 

@@ -5,38 +5,67 @@
     <title th:text="${loggedInUser.name}+' | SCM'">Profile Page</title>
 </head>
 
-<body>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
     <div id="content">
         <!-- if user is logged in then we show this sidebar -->
         <div th:if="${loggedInUser}">
             <div th:replace="~{user/sidebar::sidebar}"></div>
         </div>
 
-        <div class="sm:pl-64 pt-20">
-            <h1 class="text-5xl mb-8">This is Profile page</h1>
-            <!-- Added margin bottom for spacing -->
+        <div class="sm:pl-64 pt-20 px-4">
+            <!-- <h1 class="text-5xl mb-8 font-bold text-center">Profile Page</h1> -->
 
-            <!-- profile card -->
-            <div class="flex items-center justify-center flex-col">
-                <div class="max-w-xl w-full lg:max-w-2xl lg:flex mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
-                    <!-- Updated card size -->
-                    <div class="lg:h-64 lg:w-64 flex-none bg-cover bg-center" th:style="'background-image: url(' + @{${loggedInUser.profilePic}} + ');'" alt="User Profile Picture"></div>
-                    <img th:src="@{${loggedInUser.profilePic}}" alt=" Profile photo">
-                    <!-- Updated image size -->
-                    <div class="p-6 flex flex-col justify-between leading-normal">
-                        <!-- Updated padding -->
-                        <div class="mb-8">
-                            <h2 class="text-gray-900 dark:text-white font-bold text-2xl mb-4" th:text="${loggedInUser.name}">User Name</h2>
-                            <!-- Updated margin bottom -->
+            <!-- Profile Card -->
+            <div class="flex items-center justify-center flex-col mb-6 pt-5">
+                <div class="max-w-xl w-full lg:max-w-3xl bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+                    <div class="relative flex items-center justify-center p-6">
+                        <!-- User Profile Picture -->
+                        <img class="rounded-full border-4 border-white dark:border-gray-800" th:src="@{${loggedInUser.profilePic}}" onerror="this.onerror=null; this.src='/images/default2.png'" alt="Profile Picture" style="width: 150px; height: 150px;">
+                    </div>
+
+                    <div class="p-1">
+                        <div class="text-center mb-6">
+                            <h2 class="text-3xl font-bold mb-4" th:text="${loggedInUser.name}">User Name</h2>
                             <p class="text-gray-700 dark:text-gray-300 text-base" th:text="${loggedInUser.about}">About the user</p>
                         </div>
-                        <div>
-                            <p class="text-gray-600 dark:text-gray-400 text-sm mb-2"><strong>Email:</strong> <span th:text="${loggedInUser.email}">user@example.com</span></p>
-                            <p class="text-gray-600 dark:text-gray-400 text-sm mb-2"><strong>Phone:</strong> <span th:text="${loggedInUser.phoneNumber}">+123456789</span></p>
-                            <p class="text-gray-600 dark:text-gray-400 text-sm mb-2"><strong>Provider:</strong> <span th:text="${loggedInUser.provider}">SELF</span></p>
-                            <p class="text-gray-600 dark:text-gray-400 text-sm mb-2"><strong>Enabled:</strong> <span th:text="${loggedInUser.enabled ? 'Yes' : 'No'}">No</span></p>
-                            <p class="text-gray-600 dark:text-gray-400 text-sm mb-2"><strong>Email Verified:</strong> <span th:text="${loggedInUser.emailVerified ? 'Yes' : 'No'}">No</span></p>
-                            <p class="text-gray-600 dark:text-gray-400 text-sm"><strong>Phone Verified:</strong> <span th:text="${loggedInUser.phoneVerified ? 'Yes' : 'No'}">No</span></p>
+
+                        <!-- User Information Table -->
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                                <thead class="bg-gray-50 dark:bg-gray-700">
+                                    <tr>
+                                        <th scope="col" class="py-3 px-6 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                            Field
+                                        </th>
+                                        <th scope="col" class="py-3 px-6 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                            Value
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                                    <tr>
+                                        <td class="py-4 px-6 text-sm font-medium text-gray-900 dark:text-gray-100">Email</td>
+                                        <td class="py-4 px-6 text-sm text-gray-500 dark:text-gray-400" th:text="${loggedInUser.email}">tejas@gmail.com</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="py-4 px-6 text-sm font-medium text-gray-900 dark:text-gray-100">Provider</td>
+                                        <td class="py-4 px-6 text-sm text-gray-500 dark:text-gray-400" th:text="${loggedInUser.provider}">SELF</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-4 px-6 text-sm font-medium text-gray-900 dark:text-gray-100">Enabled</td>
+                                        <td class="py-4 px-6 text-sm text-gray-500 dark:text-gray-400" th:text="${loggedInUser.enabled ? 'Yes' : 'No'}">No</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-4 px-6 text-sm font-medium text-gray-900 dark:text-gray-100">Email Verified</td>
+                                        <td class="py-4 px-6 text-sm text-gray-500 dark:text-gray-400" th:text="${loggedInUser.emailVerified ? 'Yes' : 'No'}">No</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-4 px-6 text-sm font-medium text-gray-900 dark:text-gray-100">Phone Verified</td>
+                                        <td class="py-4 px-6 text-sm text-gray-500 dark:text-gray-400" th:text="${loggedInUser.phoneVerified ? 'Yes' : 'No'}">No</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -45,7 +74,7 @@
     </div>
 
     <script>
-        console.log("this is profile page");
+        console.log("This is the profile page");
     </script>
 </body>
 

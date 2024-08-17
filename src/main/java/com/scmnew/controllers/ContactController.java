@@ -64,6 +64,9 @@ public class ContactController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String saveContact(@Valid @ModelAttribute ContactForm contactForm, BindingResult result ,Authentication authentication, HttpSession session){
 
+        if (contactForm.getContactImage().isEmpty()) {
+            result.rejectValue("contactImage", "error.contactImage", "Image is required");
+        }
         //process the form data
 
         //validate form data
@@ -89,6 +92,16 @@ public class ContactController {
 
         String fileURL=imageService.UploadImage(contactForm.getContactImage(),filename);
 
+        String websiteLink = contactForm.getWebsiteLink();
+        if (websiteLink == null || websiteLink.isEmpty()) {
+            websiteLink = "https://www.google.com";
+        }
+    
+        String linkedinLink = contactForm.getLinkedinLink();
+        if (linkedinLink == null || linkedinLink.isEmpty()) {
+            linkedinLink = "https://www.google.com";
+        }
+
         Contact contact =new Contact();
         contact.setName(contactForm.getName());
         contact.setFavorite(contactForm.isFavorite());
@@ -97,8 +110,8 @@ public class ContactController {
         contact.setAddress(contactForm.getAddress());
         contact.setDescription(contactForm.getDescription());
         contact.setUser(user);
-        contact.setWebsiteLink(contactForm.getWebsiteLink());
-        contact.setLinkedinLink(contactForm.getLinkedinLink());
+        contact.setWebsiteLink(websiteLink);
+        contact.setLinkedinLink(linkedinLink);
         contact.setPicture(fileURL);
         contact.setCloudinaryImagePublicId(filename);
         
@@ -163,6 +176,10 @@ public class ContactController {
         var user= userService.getUserByEmail(Helper.getEmailOgLoggedInUser(authentication));
 
         Page<Contact> pageContact=null;
+
+        if(contactSearchForm.getField().isEmpty()){
+            return "redirect:/user/contacts";
+       }
 
         if(contactSearchForm.getField().equalsIgnoreCase("name")){
              pageContact=contactService.searchByName(contactSearchForm.getValue(), size, page, sortBy, direction, user);
@@ -239,7 +256,8 @@ public class ContactController {
     @RequestMapping(value = "/update/{contactId}", method = RequestMethod.POST)
     public String updateContact(  @PathVariable("contactId") String contactId,
     @Valid @ModelAttribute ContactForm contactForm, 
-    BindingResult bindingResult,Model model
+    BindingResult bindingResult,Model model,
+    HttpSession session
     ){
 
         if(bindingResult.hasErrors()){
@@ -277,11 +295,18 @@ public class ContactController {
 
         var updateCon= contactService.update(con);
 
-        logger.info("Updated contact {} ",updateCon);
-        model.addAttribute("message", Message.builder()
-        .content("Contact updated successfully")
+        logger.info(" Contact Updated Successfully {} ",updateCon);
+        // model.addAttribute("message", Message.builder()
+        // .content("Contact updated successfully")
+        // .type(MessageType.green)
+        // .build());
+
+
+        session.setAttribute("message",Message.builder()
+        .content("Contact Updated Successfully")
         .type(MessageType.green)
         .build());
+
         return "redirect:/user/contacts/view/"+contactId;
 
     }

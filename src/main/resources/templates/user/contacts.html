@@ -107,14 +107,19 @@
                                 </td>
                                 <td class="px-6 py-4">
                                     <div class="flex items-center">
-                                        <div th:if="*{favorite}" class="h-2.5 w-2.5 rounded-full bg-green-500 me-2">
-                                        </div>
+                                        <a th:if="*{favorite}"> <i class="fa-solid fa-heart w-6 h-6 text-red-600"></i>
+                                        </a>
 
-                                        <a th:href="@{*{websiteLink}}" target="_blank"><i
-                                                class="fa-solid w-6 h-6 fa-link"></i></a>
-                                        <a th:href="@{*{linkedinLink}}" target="_blank"><i
-                                                class="fa-brands w-6 h-6 fa-linkedin"></i></a>
+                                        <!-- add below th:if to the website link anchor tag if we want to show website link logo only when website link not empty -->
+                                        <!-- th:if="${contact.websiteLink != null && !contact.websiteLink.isEmpty()}" -->
+                                        <a th:href="@{*{websiteLink}}" target="_blank">
+                                            <i class="fa-solid w-6 h-6 fa-link"></i>
+                                        </a>
 
+                                        <!-- Check if linkedinLink is present -->
+                                        <a th:href="@{*{linkedinLink}}" target="_blank">
+                                            <i class="fa-brands w-6 h-6 fa-linkedin"></i>
+                                        </a>
 
                                     </div>
                                 </td>
@@ -122,16 +127,38 @@
                                     <!-- <a th:href="@{'/user/contacts/delete/'+*{id}}"> <i class="fa-solid fa-trash h-6 w-6"></i></a> -->
 
                                     <!-- delete contact link -->
-                                    <button th:onclick="deleteContact([[${c.id}]])"> <i
-                                            class="fa-solid fa-trash h-6 w-6"></i></button>
+                                    <div class="flex space-x-4">
+                                        <!-- Delete Button -->
+                                        <div class="relative group">
+                                            <button th:onclick="deleteContact([[${c.id}]])" class="relative flex items-center">
+                                                <i class="fa-solid fa-trash h-6 w-6 pr-2"></i>
+                                            </button>
+                                            <span class="absolute left-1/2 transform -translate-x-1/2 translate-y-2  text-sm text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition-opacity">
+                                                Delete 
+                                            </span>
+                                        </div>
 
-                                    <!-- update contact link -->
-                                    <a th:href="@{'/user/contacts/view/'+ *{id}}"><i
-                                            class="fa-solid fa-pen h-6 w-6"></i></a>
+                                        <!-- Update Link -->
+                                        <div class="relative group">
+                                            <a th:href="@{'/user/contacts/view/'+ *{id}}" class="relative flex items-center">
+                                                <i class="fa-solid fa-pen h-6 w-6 pr-2"></i>
+                                            </a>
+                                            <span class="absolute left-1/2 transform -translate-x-1/2 translate-y-2 text-sm text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition-opacity">
+                                                Update
+                                            </span>
+                                        </div>
 
-                                    <!-- view contact link -->
-                                    <button th:data-id="${c.id}" th:onclick="loadContactdata([[${c.id}]])"> <i
-                                            class="fa-solid fa-eye h-6 w-6"></i></button>
+                                        <!-- View Button -->
+                                        <div class="relative group">
+                                            <button th:data-id="${c.id}" th:onclick="loadContactdata([[${c.id}]])" class="relative flex items-center">
+                                                <i class="fa-solid fa-eye h-6 w-6 pr-2"></i>
+                                            </button>
+                                            <span class="absolute left-1/2 transform -translate-x-1/2 translate-y-2  text-sm text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition-opacity">
+                                                View 
+                                            </span>
+                                        </div>
+                                    </div>
+
                                 </td>
                             </tr>
 
@@ -169,7 +196,8 @@
 
                     </div>
 
-                    <h1 th:if="${pageContact.totalElements<=0}" class="text-5xl text-center bg-white "> No result found
+                    <h1 th:if="${pageContact.totalElements<=0}" class="text-5xl text-center bg-white dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        No result found
                     </h1>
 
 

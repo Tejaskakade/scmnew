@@ -48,6 +48,11 @@ async function loadContactdata(id) {
 
         document.querySelector("#contact_name").innerHTML = data.name;
         document.querySelector("#contact_email").innerHTML = data.email;
+        document.querySelector("#contact_phoneNumber").innerHTML = data.phoneNumber;
+        document.querySelector("#contact_address").innerHTML = data.address;
+        document.querySelector("#contact_description").innerHTML = data.description;
+        document.querySelector("#contact_websiteLink").innerHTML = data.websiteLink;
+        document.querySelector("#contact_linkedinLink").innerHTML = data.linkedinLink;
         openContactModal();
 
     } catch (error) {
@@ -55,6 +60,9 @@ async function loadContactdata(id) {
     }
 }
 
+async function example() {
+    Swal.fire("SweetAlert2 is working!");
+}
 
 //delete contact
 
@@ -74,4 +82,14 @@ async function deleteContact(id) {
             window.location.replace(url);
         }
     });
+
+
+
+    // Swal.fire({
+    //     icon: "error",
+    //     title: "Oops...",
+    //     text: "Something went wrong!",
+    //     footer: '<a href="#">Why do I have this issue?</a>'
+    // });
+
 }
